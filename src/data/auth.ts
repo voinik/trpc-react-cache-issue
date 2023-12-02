@@ -4,9 +4,8 @@ import { cache } from "react";
 
 import { AuthUser } from "./AuthUser";
 
-// We cache to avoid calling Clerk more than once per user request.
-// We also limit the data that can be read from the Clerk response to prevent
-// unneeded data exposure.
+// We cache this with React's cache function, so that we only call the callback once per request.
+// You can pretend the callback contains a call to Clerk, for example
 export const getCurrentUser = cache(async () => {
   console.log("Inside getCurrentUser");
 
