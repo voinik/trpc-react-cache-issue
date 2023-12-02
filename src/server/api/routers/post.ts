@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 
 let post = {
   id: 1,
@@ -28,5 +32,10 @@ export const postRouter = createTRPCRouter({
 
   getLatest: publicProcedure.query(() => {
     return post;
+  }),
+
+  getAuthedMessage: protectedProcedure.query(({ ctx: { user } }) => {
+    console.log("user in route handler: ", JSON.stringify(user, null, 4));
+    return "authed!";
   }),
 });
